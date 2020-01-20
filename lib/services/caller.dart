@@ -5,14 +5,22 @@ import 'package:foodwallfy/services/responses.dart';
 class ServiceCaller {
   final Dio _dio = Dio();
 
-  Future<GradientResponse> fetchGradients() async {
-    GradientResponse gradients;
+  Future<Food> fetchWalls() async {
+    Food food;
     try {
       // var result = await _loadGradientAsset();
-      String url = Frazile.baseURL + Frazile.gradientsURL;
-      var result = await _dio.get(url);
-      gradients = GradientResponse.fromJson(result.data);
-      return gradients;
+      // String url = Frazile.baseURL + Frazile.foodURL;
+      var result = await _dio.get(
+        Frazile.baseURL,
+        queryParameters: {
+          "client_id": Frazile.clientId,
+          "query": Frazile.query,
+          "per_page": Frazile.perPage,
+          "orientation": Frazile.orientation,
+        },
+      );
+      food = Food.fromJson(result.data);
+      return food;
     } on DioError catch (error) {
       String er = Frazile().getErrorMessage(error);
       throw er;

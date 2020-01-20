@@ -7,12 +7,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Frazile {
   //* Names
-  static const String appName = 'Frazile Gradients';
+  static const String appName = 'Food Wallfy';
 
   //* Service Caller Settings
-  static const String baseURL =
-      "https://storage.googleapis.com/foodwallfy";
-  static const String gradientsURL = "/assets/data/gradients.json";
+  static const String baseURL = "https://api.unsplash.com/search/photos";
+  static const String clientId =
+      "6fa91622109e859b1c40218a5dead99f7262cf4f698b1e2cb89dd18fc5824d15";
+  static const String query = "food";
+  static const String orientation = "portrait";
+  static const int perPage = 16;
 
   //* DB Settings
   static const int dbversion = 1;

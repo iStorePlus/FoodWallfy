@@ -29,13 +29,6 @@ class FzColors {
   List<Color> getListColors(List<String> colors) =>
       colors.map((color) => FzColors().hexToColor(color)).toList();
 
-  //* Get Random Gradient
-  List<Color> getColors(List<GradientData> gradientData) =>
-      gradientData[Random.secure().nextInt(gradientData.length)]
-          .colors
-          .map((color) => FzColors().hexToColor(color))
-          .toList();
-
   //* Loader Colors
   List<Color> getLoaderColors() => FzColors().getListColors(
         [

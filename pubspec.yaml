@@ -23,6 +23,7 @@ dependencies:
   flutter_spinkit:
   # rate_my_app: ^0.4.0
   shared_preferences:
+  cached_network_image: ^2.0.0
 
 # App Packages from pub.dev only for debug mode for both Android & iOS
 dev_dependencies:
