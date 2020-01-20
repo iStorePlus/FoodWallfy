@@ -15,11 +15,11 @@ class Frazile {
       "6fa91622109e859b1c40218a5dead99f7262cf4f698b1e2cb89dd18fc5824d15";
   static const String query = "food";
   static const String orientation = "portrait";
-  static const int perPage = 16;
+  static const int perPage = 10;
 
   //* DB Settings
-  static const int dbversion = 1;
-  static const String gradientTB = "Gradients";
+  // static const int dbversion = 1;
+  // static const String gradientTB = "Gradients";
 
   //* Error Messages
   String errorMessage;
@@ -61,10 +61,11 @@ class Frazile {
   static const String googleFamily = 'google';
 
   //* Loaders
-  Widget gradientLoader() => SpinKitCubeGrid(
+  Widget gradientLoader() => SpinKitThreeBounce(
         size: 70.0,
         itemBuilder: (context, index) => DecoratedBox(
           decoration: BoxDecoration(
+            shape: BoxShape.circle,
             gradient: LinearGradient(
               colors: FzColors().getLoaderColors(),
               tileMode: TileMode.clamp,

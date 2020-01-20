@@ -31,10 +31,7 @@ class FzColors {
 
   //* Loader Colors
   List<Color> getLoaderColors() => FzColors().getListColors(
-        [
-          '#EB3349',
-          '#F45C43',
-        ],
+        ["#FF512F", "#DD2476"], // Bloody Mary
       );
   List<double> getLoaderStops() => [
         0.0,
