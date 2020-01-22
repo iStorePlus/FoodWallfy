@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    wallBloc.fetchImages();
+    wallBloc.fetchImages(perPage: Frazile.perPage);
     super.initState();
   }
 
@@ -26,6 +26,11 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     wallBloc.dispose();
     super.dispose();
+  }
+
+  _loadmore() async {
+    Frazile.perPage = Frazile.perPage + 10;
+    await wallBloc.fetchImages(perPage: Frazile.perPage);
   }
 
   @override

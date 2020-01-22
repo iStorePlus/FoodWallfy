@@ -5,7 +5,7 @@ import 'package:foodwallfy/services/responses.dart';
 class ServiceCaller {
   final Dio _dio = Dio();
 
-  Future<Food> fetchWalls() async {
+  Future<Food> fetchWalls({int perPage}) async {
     Food food;
     try {
       // var result = await _loadGradientAsset();
@@ -15,7 +15,7 @@ class ServiceCaller {
         queryParameters: {
           "client_id": Frazile.clientId,
           "query": Frazile.query,
-          "per_page": Frazile.perPage,
+          "per_page": perPage,
           "orientation": Frazile.orientation,
         },
       );
