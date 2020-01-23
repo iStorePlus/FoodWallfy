@@ -15,7 +15,8 @@ class Frazile {
       "6fa91622109e859b1c40218a5dead99f7262cf4f698b1e2cb89dd18fc5824d15";
   static const String query = "food";
   static const String orientation = "portrait";
-  static int perPage = 10;
+  static const int perPage = 10;
+  static int page = 1;
 
   //* DB Settings
   // static const int dbversion = 1;

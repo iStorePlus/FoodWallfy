@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:foodwallfy/animations/grid.dart';
 import 'package:foodwallfy/constants/colors.dart';
@@ -15,10 +16,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   WallBloc wallBloc = WallBloc();
+  bool isLoading = false;
 
   @override
   void initState() {
-    wallBloc.fetchImages(perPage: Frazile.perPage);
+    wallBloc.fetchImages(page: Frazile.page);
     super.initState();
   }
 
@@ -29,8 +31,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   _loadmore() async {
-    Frazile.perPage = Frazile.perPage + 10;
-    await wallBloc.fetchImages(perPage: Frazile.perPage);
+    Frazile.page = Frazile.page + 1;
+    await wallBloc.fetchImages(page: Frazile.page);
+    isLoading = false;
   }
 
   @override
@@ -346,53 +349,107 @@ class _HomePageState extends State<HomePage> {
                                 //     ),
                                 //   ),
                                 // ),
-                                StaggeredGridView.countBuilder(
-                              // padding: const EdgeInsets.all(8.0),
-                              crossAxisCount: 4,
-                              crossAxisSpacing: 10.0,
-                              mainAxisSpacing: 10.0,
-                              physics: BouncingScrollPhysics(),
-                              itemCount: snapshot.data.length,
-                              itemBuilder: (c, i) => InkWell(
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (c) => FullImage(
-                                      snapshot.data[i].urls.full,
-                                      snapshot.data[i].urls.regular,
-                                    ),
-                                  ),
-                                ),
-                                child: Hero(
-                                  tag: snapshot.data[i].id,
-                                  child: Container(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(
-                                        10.0,
-                                      ),
-                                      child: CachedNetworkImage(
-                                        fadeInCurve: Curves.easeInCubic,
-                                        fadeInDuration:
-                                            Duration(milliseconds: 900),
-                                        imageUrl: snapshot.data[i].urls.regular,
-                                        alignment: Alignment.center,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.pink,
-                                      borderRadius: BorderRadius.circular(
-                                        10.0,
+                                NotificationListener<ScrollNotification>(
+                              onNotification: (ScrollNotification scrolling) {
+                                if (!isLoading &&
+                                    scrolling.metrics.pixels ==
+                                        scrolling.metrics.maxScrollExtent) {
+                                  _loadmore();
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                }
+                                return isLoading;
+                              },
+                              child: StaggeredGridView.countBuilder(
+                                // padding: const EdgeInsets.all(8.0),
+                                crossAxisCount: 4,
+                                crossAxisSpacing: 10.0,
+                                mainAxisSpacing: 10.0,
+                                physics: AlwaysScrollableScrollPhysics(),
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (c, i) => InkWell(
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (c) => FullImage(
+                                        snapshot.data[i].urls.full,
+                                        snapshot.data[i].urls.regular,
                                       ),
                                     ),
                                   ),
+                                  child: Hero(
+                                    tag: snapshot.data[i].id,
+                                    child: Container(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        child: CachedNetworkImage(
+                                          fadeInCurve: Curves.easeInCubic,
+                                          fadeInDuration:
+                                              Duration(milliseconds: 900),
+                                          imageUrl:
+                                              snapshot.data[i].urls.regular,
+                                          alignment: Alignment.center,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: Colors.pink,
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
+                                staggeredTileBuilder: (i) =>
+                                    StaggeredTile.count(2, i.isEven ? 2 : 3),
                               ),
-                              staggeredTileBuilder: (i) =>
-                                  StaggeredTile.count(2, i.isEven ? 2 : 3),
                             ),
                           ),
                         ),
+                      ),
+                      Positioned(
+                        left: MediaQuery.of(context).size.width * .1,
+                        right: MediaQuery.of(context).size.width * .1,
+                        bottom: MediaQuery.of(context).size.height * .02,
+                        child: isLoading
+                            ? SpinKitChasingDots(
+                                size: 80.0,
+                                itemBuilder: (context, index) => DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    gradient: LinearGradient(
+                                      colors: FzColors().getListColors(
+                                        [
+                                          "#9400D3",
+                                          "#4B0082",
+                                          "#0000FF",
+                                          "#00FF00",
+                                          "#FFFF00",
+                                          "#FF7F00",
+                                          "#FF0000"
+                                        ],
+                                      ),
+                                      tileMode: TileMode.clamp,
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      stops: [
+                                        0.0,
+                                        0.14285714285714285,
+                                        0.2857142857142857,
+                                        0.42857142857142855,
+                                        0.5714285714285714,
+                                        0.7142857142857143,
+                                        0.8571428571428571
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(),
                       ),
                     ],
                   );

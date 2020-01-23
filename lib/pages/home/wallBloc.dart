@@ -8,11 +8,17 @@ class WallBloc {
   List<Result> wallsData = List<Result>();
   Observable<List<Result>> get wallpapers => wallsBloc.stream;
 
-  Future fetchImages({int perPage}) async {
+  Future fetchImages({int page}) async {
+    List<Result> walls;
     try {
       ServiceManager sm = ServiceManager();
-      List<Result> walls = await sm.fetchWalls(perPage: perPage);
-      wallsBloc.sink.add(walls);
+      walls = await sm.fetchWalls(page: page);
+
+      walls.forEach((wall) {
+        // Result wallData = Result();
+        wallsData.add(wall);
+      });
+      wallsBloc.sink.add(wallsData);
     } catch (error) {
       print(error);
     }
