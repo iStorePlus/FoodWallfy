@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodwallfy/constants/colors.dart';
 import 'package:foodwallfy/constants/frazile.dart';
-import 'package:foodwallfy/pages/config/configBloc.dart';
+// import 'package:foodwallfy/pages/config/configBloc.dart';
 import 'package:foodwallfy/pages/home/homePage.dart';
 
 class ConfigPage extends StatefulWidget {

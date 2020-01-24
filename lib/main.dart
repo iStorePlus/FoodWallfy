@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:foodwallfy/constants/frazile.dart';
-import 'package:foodwallfy/db/DBManager.dart';
+// import 'package:foodwallfy/constants/frazile.dart';
+// import 'package:foodwallfy/db/DBManager.dart';
 import 'package:foodwallfy/pages/config/configPage.dart';
 import 'package:foodwallfy/services/connectionStatus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   ConnectionStatus connectionStatus = ConnectionStatus.getInstance();

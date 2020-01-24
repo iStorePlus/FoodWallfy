@@ -4,6 +4,7 @@ import 'package:rxdart/rxdart.dart';
 class ConfigBloc {
   final configBloc = BehaviorSubject<bool>();
   Observable<bool> get darkMode => configBloc.stream;
+  // Observable<bool> get download_wall => configBloc.stream;
   // Battery battery = Battery();
 
   // getBatteryLevel() async {
@@ -34,6 +35,8 @@ class ConfigBloc {
     configBloc.sink.add(darkModeOn);
   }
 
+
+ 
   dispose() {
     configBloc.close();
   }
