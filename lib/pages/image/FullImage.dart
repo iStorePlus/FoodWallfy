@@ -3,6 +3,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:file_utils/file_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,7 @@ import 'dart:ui' as ui;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foodwallfy/constants/colors.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:share/share.dart';
 import 'package:wallpaper/wallpaper.dart';
 
 class FullImage extends StatefulWidget {
@@ -134,7 +133,7 @@ class _FullImageState extends State<FullImage> {
       var request = await HttpClient().getUrl(Uri.parse(imgUrl));
       var response = await request.close();
       Uint8List bytes = await consolidateHttpClientResponseBytes(response);
-      // await Share.file('Food Wallpaper', 'abs.jpg', bytes, 'image/jpg');
+      await Share.file('Food Wallpaper', 'food.jpg', bytes, 'image/jpg');
     } catch (error) {
       print('Error Sharing Image: $error');
     }
@@ -298,7 +297,7 @@ class _FullImageState extends State<FullImage> {
                           left: MediaQuery.of(context).size.width * .72,
                           child: IconButton(
                             icon: Icon(Icons.share),
-                            onPressed: () {},
+                            onPressed: () => shareImg(widget.lastImgPath),
                             color: Colors.white,
                           ),
                         ),
