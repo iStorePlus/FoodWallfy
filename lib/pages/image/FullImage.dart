@@ -85,14 +85,14 @@ class _FullImageState extends State<FullImage> {
 
       setState(() {
         progress = "Download Completed.";
-        Fluttertoast.showToast(
-            msg: 'Image Saved to Gallery.',
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIos: 5,
-            backgroundColor: Colors.white70,
-            textColor: Color.fromRGBO(9, 9, 26, 1.0),
-            fontSize: 18.0);
+        // Fluttertoast.showToast(
+        //     msg: 'Image Saved to Gallery.',
+        //     toastLength: Toast.LENGTH_LONG,
+        //     gravity: ToastGravity.CENTER,
+        //     timeInSecForIos: 5,
+        //     backgroundColor: Colors.white70,
+        //     textColor: Color.fromRGBO(9, 9, 26, 1.0),
+        //     fontSize: 18.0);
         downloading = false;
       });
     } else {
