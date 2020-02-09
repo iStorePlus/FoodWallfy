@@ -6,7 +6,7 @@ import 'package:foodwallfy/animations/grid.dart';
 import 'package:foodwallfy/constants/colors.dart';
 import 'package:foodwallfy/constants/frazile.dart';
 import 'package:foodwallfy/pages/home/wallBloc.dart';
-import 'package:foodwallfy/pages/image/FullImage.dart';
+import 'package:foodwallfy/pages/image/FullArguments.dart';
 import 'package:foodwallfy/services/responses.dart';
 
 class HomePage extends StatefulWidget {
@@ -369,13 +369,12 @@ class _HomePageState extends State<HomePage> {
                                 physics: AlwaysScrollableScrollPhysics(),
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (c, i) => InkWell(
-                                  onTap: () => Navigator.push(
+                                  onTap: () => Navigator.pushNamed(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (c) => FullImage(
-                                        snapshot.data[i].urls.full,
-                                        snapshot.data[i].urls.regular,
-                                      ),
+                                    Frazile.fullImage,
+                                    arguments: FullImageArguments(
+                                      snapshot.data[i].urls.full,
+                                      snapshot.data[i].urls.regular,
                                     ),
                                   ),
                                   child: Hero(

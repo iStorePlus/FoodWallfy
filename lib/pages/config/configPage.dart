@@ -3,7 +3,6 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:foodwallfy/constants/colors.dart';
 import 'package:foodwallfy/constants/frazile.dart';
-// import 'package:foodwallfy/pages/config/configBloc.dart';
 import 'package:foodwallfy/pages/home/homePage.dart';
 import 'package:foodwallfy/pages/image/FullImage.dart';
 
@@ -50,7 +49,7 @@ class _ConfigPageState extends State<ConfigPage> {
         initialRoute: '/',
         routes: {
           Frazile.home: (BuildContext context) => HomePage(),
-          // Frazile.fullImage: (BuildContext context) => FullImage(),
+          Frazile.fullImage: (BuildContext context) => FullImage(),
         },
       );
 }

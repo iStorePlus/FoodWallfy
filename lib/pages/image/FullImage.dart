@@ -11,14 +11,11 @@ import 'dart:ui' as ui;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foodwallfy/constants/colors.dart';
+import 'package:foodwallfy/pages/image/FullArguments.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:wallpaper/wallpaper.dart';
 
 class FullImage extends StatefulWidget {
-  final String imgPath;
-  final String lastImgPath;
-  FullImage(this.imgPath, this.lastImgPath);
-
   @override
   _FullImageState createState() => _FullImageState();
 }
@@ -156,183 +153,186 @@ class _FullImageState extends State<FullImage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: ClipRRect(
-            child: CachedNetworkImage(
-              placeholderFadeInDuration: Duration(milliseconds: 40),
-              placeholder: (c, url) => Stack(
-                children: <Widget>[
-                  CachedNetworkImage(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    imageUrl: widget.lastImgPath,
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
-                    fadeInCurve: Curves.bounceIn,
-                    fadeInDuration: Duration(milliseconds: 1000),
+  Widget build(BuildContext context) {
+    final FullImageArguments args = ModalRoute.of(context).settings.arguments;
+    return Scaffold(
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: ClipRRect(
+          child: CachedNetworkImage(
+            placeholderFadeInDuration: Duration(milliseconds: 40),
+            placeholder: (c, url) => Stack(
+              children: <Widget>[
+                CachedNetworkImage(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  imageUrl: args.lastImgPath,
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center,
+                  fadeInCurve: Curves.bounceIn,
+                  fadeInDuration: Duration(milliseconds: 1000),
+                ),
+                BackdropFilter(
+                  filter: new ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                  child: Container(
+                    color: Colors.black.withOpacity(0.3),
                   ),
-                  BackdropFilter(
-                    filter: new ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                    child: Container(
-                      color: Colors.black.withOpacity(0.3),
-                    ),
-                  ),
-                  Center(
-                    child: SpinKitCircle(
-                      size: 100.0,
-                      itemBuilder: (context, index) => DecoratedBox(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            colors: FzColors().getListColors(
-                              ["#FDFBFB", "#EBEDEE"],
-                            ),
-                            tileMode: TileMode.clamp,
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            stops: FzColors().getLoaderStops(),
+                ),
+                Center(
+                  child: SpinKitCircle(
+                    size: 100.0,
+                    itemBuilder: (context, index) => DecoratedBox(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          colors: FzColors().getListColors(
+                            ["#FDFBFB", "#EBEDEE"],
                           ),
+                          tileMode: TileMode.clamp,
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: FzColors().getLoaderStops(),
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
-              imageUrl: widget.imgPath,
-              imageBuilder: (context, image) => downloading
-                  ? Stack(
-                      children: <Widget>[
-                        CachedNetworkImage(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          imageUrl: widget.lastImgPath,
-                          fit: BoxFit.cover,
-                          alignment: Alignment.center,
-                          fadeInCurve: Curves.bounceIn,
-                          fadeInDuration: Duration(milliseconds: 1000),
-                        ),
-                        BackdropFilter(
-                          filter:
-                              new ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                          child: Container(
-                            color: Colors.black.withOpacity(0.3),
-                          ),
-                        ),
-                        Center(
-                          child: SpinKitCircle(
-                            size: 100.0,
-                            itemBuilder: (context, index) => DecoratedBox(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                gradient: LinearGradient(
-                                  colors: FzColors().getListColors(
-                                    ["#F093FB", "#F5576C"],
-                                  ),
-                                  tileMode: TileMode.clamp,
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  stops: FzColors().getLoaderStops(),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Text(
-                            '$progress',
-                            style: TextStyle(
-                              fontSize: 22.0,
-                              letterSpacing: 2.0,
-                              fontWeight: FontWeight.w800,
-                              foreground: Paint()
-                                ..shader = LinearGradient(
-                                  colors: FzColors().getListColors(
-                                    ["#F093FB", "#F5576C"],
-                                  ),
-                                ).createShader(
-                                  Rect.fromLTRB(
-                                    200.0,
-                                    0.0,
-                                    100.0,
-                                    0.0,
-                                  ),
-                                ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : Stack(
-                      children: <Widget>[
-                        Image(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          image: image,
-                          fit: BoxFit.cover,
-                        ),
-                        Positioned(
-                          bottom: MediaQuery.of(context).size.height * .03,
-                          left: MediaQuery.of(context).size.width * .08,
-                          right: MediaQuery.of(context).size.width * .27,
-                          child: MaterialButton(
-                            splashColor: Colors.grey[100],
-                            color: Colors.white.withOpacity(.47),
-                            textColor: Colors.white,
-                            elevation: 5.0,
-                            height: 40.0,
-                            // focusColor: Colors.orange,
-                            // minWidth: 50.0,
-                            child: Text("Download"),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40.0),
-                            ),
-                            onPressed: () => downloadFile(widget.imgPath),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: MediaQuery.of(context).size.height * .03,
-                          // right: MediaQuery.of(context).size.width * .2,
-                          left: MediaQuery.of(context).size.width * .72,
-                          child: IconButton(
-                            icon: Icon(Icons.share),
-                            onPressed: () => shareImg(widget.lastImgPath),
-                            color: Colors.white,
-                          ),
-                        ),
-                        Positioned(
-                          bottom: MediaQuery.of(context).size.height * .03,
-                          // right: MediaQuery.of(context).size.width * .2,
-                          left: MediaQuery.of(context).size.width * .84,
-                          child: IconButton(
-                            icon: Icon(Icons.wallpaper),
-                            onPressed: () => setwallpaper(widget.lastImgPath),
-                            color: Colors.white,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              AppBar(
-                                elevation: 0.0,
-                                backgroundColor: Colors.black12,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
-              fadeInCurve: Curves.bounceIn,
-              fadeInDuration: Duration(milliseconds: 1000),
+                ),
+              ],
             ),
+            imageUrl: args.imgPath,
+            imageBuilder: (context, image) => downloading
+                ? Stack(
+                    children: <Widget>[
+                      CachedNetworkImage(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        imageUrl: args.lastImgPath,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.center,
+                        fadeInCurve: Curves.bounceIn,
+                        fadeInDuration: Duration(milliseconds: 1000),
+                      ),
+                      BackdropFilter(
+                        filter:
+                            new ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                        child: Container(
+                          color: Colors.black.withOpacity(0.3),
+                        ),
+                      ),
+                      Center(
+                        child: SpinKitCircle(
+                          size: 100.0,
+                          itemBuilder: (context, index) => DecoratedBox(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: LinearGradient(
+                                colors: FzColors().getListColors(
+                                  ["#F093FB", "#F5576C"],
+                                ),
+                                tileMode: TileMode.clamp,
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                stops: FzColors().getLoaderStops(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '$progress',
+                          style: TextStyle(
+                            fontSize: 22.0,
+                            letterSpacing: 2.0,
+                            fontWeight: FontWeight.w800,
+                            foreground: Paint()
+                              ..shader = LinearGradient(
+                                colors: FzColors().getListColors(
+                                  ["#F093FB", "#F5576C"],
+                                ),
+                              ).createShader(
+                                Rect.fromLTRB(
+                                  200.0,
+                                  0.0,
+                                  100.0,
+                                  0.0,
+                                ),
+                              ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : Stack(
+                    children: <Widget>[
+                      Image(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        image: image,
+                        fit: BoxFit.cover,
+                      ),
+                      Positioned(
+                        bottom: MediaQuery.of(context).size.height * .03,
+                        left: MediaQuery.of(context).size.width * .08,
+                        right: MediaQuery.of(context).size.width * .27,
+                        child: MaterialButton(
+                          splashColor: Colors.grey[100],
+                          color: Colors.white.withOpacity(.47),
+                          textColor: Colors.white,
+                          elevation: 5.0,
+                          height: 40.0,
+                          // focusColor: Colors.orange,
+                          // minWidth: 50.0,
+                          child: Text("Download"),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                          onPressed: () => downloadFile(args.imgPath),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: MediaQuery.of(context).size.height * .03,
+                        // right: MediaQuery.of(context).size.width * .2,
+                        left: MediaQuery.of(context).size.width * .72,
+                        child: IconButton(
+                          icon: Icon(Icons.share),
+                          onPressed: () => shareImg(args.lastImgPath),
+                          color: Colors.white,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: MediaQuery.of(context).size.height * .03,
+                        // right: MediaQuery.of(context).size.width * .2,
+                        left: MediaQuery.of(context).size.width * .84,
+                        child: IconButton(
+                          icon: Icon(Icons.wallpaper),
+                          onPressed: () => setwallpaper(args.lastImgPath),
+                          color: Colors.white,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            AppBar(
+                              elevation: 0.0,
+                              backgroundColor: Colors.black12,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+            fit: BoxFit.cover,
+            alignment: Alignment.center,
+            fadeInCurve: Curves.bounceIn,
+            fadeInDuration: Duration(milliseconds: 1000),
           ),
         ),
-      );
+      ),
+    );
+  }
 }
