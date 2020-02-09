@@ -133,7 +133,8 @@ class _FullImageState extends State<FullImage> {
       var request = await HttpClient().getUrl(Uri.parse(imgUrl));
       var response = await request.close();
       Uint8List bytes = await consolidateHttpClientResponseBytes(response);
-      await Share.file('Food Wallpaper', 'food.jpg', bytes, 'image/jpg');
+      await Share.file('Food Wallpaper', 'food.jpg', bytes, 'image/jpg',
+          text: 'Food Wallfy.');
     } catch (error) {
       print('Error Sharing Image: $error');
     }
@@ -307,7 +308,7 @@ class _FullImageState extends State<FullImage> {
                           left: MediaQuery.of(context).size.width * .84,
                           child: IconButton(
                             icon: Icon(Icons.wallpaper),
-                            onPressed: () => setwallpaper(widget.imgPath),
+                            onPressed: () => setwallpaper(widget.lastImgPath),
                             color: Colors.white,
                           ),
                         ),
