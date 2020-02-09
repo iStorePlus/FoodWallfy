@@ -1,8 +1,11 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:foodwallfy/constants/colors.dart';
 import 'package:foodwallfy/constants/frazile.dart';
 // import 'package:foodwallfy/pages/config/configBloc.dart';
 import 'package:foodwallfy/pages/home/homePage.dart';
+import 'package:foodwallfy/pages/image/FullImage.dart';
 
 class ConfigPage extends StatefulWidget {
   @override
@@ -10,6 +13,8 @@ class ConfigPage extends StatefulWidget {
 }
 
 class _ConfigPageState extends State<ConfigPage> {
+  FirebaseAnalytics analytics = FirebaseAnalytics();
+
   @override
   void initState() {
     super.initState();
@@ -24,6 +29,9 @@ class _ConfigPageState extends State<ConfigPage> {
   Widget build(BuildContext context) => MaterialApp(
         title: Frazile.appName,
         debugShowCheckedModeBanner: false,
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: analytics),
+        ],
         theme: ThemeData(
           fontFamily: Frazile.googleFamily,
           primarySwatch: Colors.red,
@@ -39,11 +47,10 @@ class _ConfigPageState extends State<ConfigPage> {
               ),
           brightness: Brightness.light,
         ),
-        home: HomePage(),
+        initialRoute: '/',
         routes: {
-          // Frazile.colorDetail: (BuildContext context) => ColorDetail(),
+          Frazile.home: (BuildContext context) => HomePage(),
+          // Frazile.fullImage: (BuildContext context) => FullImage(),
         },
       );
 }
-// );
-// }
