@@ -39,12 +39,13 @@ class _ConfigPageState extends State<ConfigPage> {
           primaryIconTheme: IconThemeData(
             color: FzColors.iconColor,
           ),
-          disabledColor: Colors.grey,
+          // disabledColor: Colors.grey,
+          cardColor: Colors.white,
           primaryTextTheme: Theme.of(context).textTheme.apply(
                 bodyColor: FzColors.textColor,
                 displayColor: FzColors.textColor,
               ),
-          brightness: Brightness.light,
+          // brightness: Brightness.light,
         ),
         initialRoute: '/',
         routes: {

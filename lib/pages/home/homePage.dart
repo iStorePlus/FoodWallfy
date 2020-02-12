@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:foodwallfy/animations/grid.dart';
 import 'package:foodwallfy/constants/colors.dart';
 import 'package:foodwallfy/constants/frazile.dart';
+import 'package:foodwallfy/constants/menuItems.dart';
 import 'package:foodwallfy/pages/home/wallBloc.dart';
 import 'package:foodwallfy/pages/image/FullArguments.dart';
 import 'package:foodwallfy/services/responses.dart';
@@ -308,6 +309,24 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Positioned(
+                        top: MediaQuery.of(context).size.height * .035,
+                        right: MediaQuery.of(context).size.width * .02,
+                        child: PopupMenuButton<MenuItems>(
+                          elevation: 3.0,
+                          onCanceled: () => {},
+                          tooltip: "Menu",
+                          onSelected: selectedMenuItem,
+                          itemBuilder: (BuildContext context) {
+                            return menu.map((MenuItems menuItem) {
+                              return PopupMenuItem<MenuItems>(
+                                value: menuItem,
+                                child: Text(menuItem.title),
+                              );
+                            }).toList();
+                          },
+                        ),
+                      ),
+                      Positioned(
                         top: MediaQuery.of(context).size.height * .11,
                         left: 10.0,
                         right: 10.0,
@@ -469,4 +488,21 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  void selectedMenuItem(MenuItems menu) {
+    switch (menu.id) {
+      case 0:
+        break;
+      case 1:
+        break;
+      case 2:
+        break;
+    }
+  }
+
+  static const List<MenuItems> menu = const <MenuItems>[
+    const MenuItems(id: 0, title: 'About'),
+    const MenuItems(id: 1, title: 'Settings'),
+    const MenuItems(id: 2, title: 'Donate'),
+  ];
 }
