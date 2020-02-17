@@ -273,7 +273,7 @@ class _FullImageState extends State<FullImage> {
                         fit: BoxFit.cover,
                       ),
                       Positioned(
-                        bottom: MediaQuery.of(context).size.height * .03,
+                        bottom: MediaQuery.of(context).size.height * .07,
                         left: MediaQuery.of(context).size.width * .08,
                         right: MediaQuery.of(context).size.width * .27,
                         child: MaterialButton(
@@ -292,7 +292,7 @@ class _FullImageState extends State<FullImage> {
                         ),
                       ),
                       Positioned(
-                        bottom: MediaQuery.of(context).size.height * .03,
+                        bottom: MediaQuery.of(context).size.height * .07,
                         // right: MediaQuery.of(context).size.width * .2,
                         left: MediaQuery.of(context).size.width * .72,
                         child: IconButton(
@@ -302,7 +302,7 @@ class _FullImageState extends State<FullImage> {
                         ),
                       ),
                       Positioned(
-                        bottom: MediaQuery.of(context).size.height * .03,
+                        bottom: MediaQuery.of(context).size.height * .07,
                         // right: MediaQuery.of(context).size.width * .2,
                         left: MediaQuery.of(context).size.width * .84,
                         child: IconButton(

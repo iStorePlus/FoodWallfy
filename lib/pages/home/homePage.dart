@@ -418,21 +418,25 @@ class _HomePageState extends State<HomePage> {
                                 return isLoading;
                               },
                               child: StaggeredGridView.countBuilder(
-                                // padding: const EdgeInsets.all(8.0),
                                 crossAxisCount: 4,
                                 crossAxisSpacing: 10.0,
                                 mainAxisSpacing: 10.0,
                                 physics: AlwaysScrollableScrollPhysics(),
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (c, i) => InkWell(
-                                  onTap: () => Navigator.pushNamed(
-                                    context,
-                                    Frazile.fullImage,
-                                    arguments: FullImageArguments(
-                                      snapshot.data[i].urls.full,
-                                      snapshot.data[i].urls.regular,
-                                    ),
-                                  ),
+                                  onTap: () {
+                                    createInterstitialAd()
+                                      ..load()
+                                      ..show();
+                                    Navigator.pushNamed(
+                                      context,
+                                      Frazile.fullImage,
+                                      arguments: FullImageArguments(
+                                        snapshot.data[i].urls.full,
+                                        snapshot.data[i].urls.regular,
+                                      ),
+                                    );
+                                  },
                                   child: Hero(
                                     tag: snapshot.data[i].id,
                                     child: Container(
