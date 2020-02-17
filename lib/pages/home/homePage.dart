@@ -492,10 +492,13 @@ class _HomePageState extends State<HomePage> {
   void selectedMenuItem(MenuItems menu) {
     switch (menu.id) {
       case 0:
+        Navigator.pushNamed(context, Frazile.about);
         break;
       case 1:
+        Navigator.pushNamed(context, Frazile.settings);
         break;
       case 2:
+        Navigator.pushNamed(context, Frazile.donate);
         break;
     }
   }

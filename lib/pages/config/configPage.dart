@@ -3,8 +3,11 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:foodwallfy/constants/colors.dart';
 import 'package:foodwallfy/constants/frazile.dart';
+import 'package:foodwallfy/pages/about/About.dart';
+import 'package:foodwallfy/pages/donate/Donate.dart';
 import 'package:foodwallfy/pages/home/homePage.dart';
 import 'package:foodwallfy/pages/image/FullImage.dart';
+import 'package:foodwallfy/pages/settings/Settings.dart';
 
 class ConfigPage extends StatefulWidget {
   @override
@@ -51,6 +54,9 @@ class _ConfigPageState extends State<ConfigPage> {
         routes: {
           Frazile.home: (BuildContext context) => HomePage(),
           Frazile.fullImage: (BuildContext context) => FullImage(),
+          Frazile.about: (BuildContext context) => About(),
+          Frazile.settings: (BuildContext context) => Settings(),
+          Frazile.donate: (BuildContext context) => Donate(),
         },
       );
 }

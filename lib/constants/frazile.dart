@@ -91,5 +91,8 @@ class Frazile {
 
   //* Routes
   static const String home = '/';
-  static const String fullImage = 'FullImage';
+  static const String fullImage = '/fullimage';
+  static const String about = '/about';
+  static const String settings = '/settings';
+  static const String donate = '/donate';
 }
