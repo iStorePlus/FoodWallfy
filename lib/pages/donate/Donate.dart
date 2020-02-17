@@ -7,7 +7,12 @@ class Donate extends StatefulWidget {
 
 class _DonateState extends State<Donate> {
   @override
-  Widget build(BuildContext context) => Center(
-        child: Text('Donate'),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text('Donate'),
+        ),
+        body: Center(
+          child: Text('Donate Coming Soon'),
+        ),
       );
 }

@@ -7,7 +7,12 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   @override
-  Widget build(BuildContext context) => Center(
-        child: Text('Settings'),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text('Settings'),
+        ),
+        body: Center(
+          child: Text('Settings Coming Soon'),
+        ),
       );
 }

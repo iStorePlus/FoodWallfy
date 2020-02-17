@@ -7,7 +7,12 @@ class About extends StatefulWidget {
 
 class _AboutState extends State<About> {
   @override
-  Widget build(BuildContext context) => Center(
-        child: Text('About'),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text('About'),
+        ),
+        body: Center(
+          child: Text('About Coming Soon'),
+        ),
       );
 }
