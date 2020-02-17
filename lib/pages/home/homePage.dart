@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -19,15 +20,53 @@ class _HomePageState extends State<HomePage> {
   WallBloc wallBloc = WallBloc();
   bool isLoading = false;
 
+  static final MobileAdTargetingInfo targetInfo = MobileAdTargetingInfo(
+    testDevices: <String>[],
+    keywords: <String>[
+      'WALLPAPERS',
+      'WALLS',
+      'AMOLED',
+      'Clothing',
+      'Food',
+      'Juices'
+    ],
+    childDirected: true,
+  );
+
+  BannerAd _bannerAd;
+  InterstitialAd _interstitialAd;
+
+  BannerAd createBannerAd() => BannerAd(
+      adUnitId: "ca-app-pub-3595684883769922/7247005176",
+      size: AdSize.smartBanner,
+      targetingInfo: targetInfo,
+      listener: (MobileAdEvent event) {
+        print("Banner event : $event");
+      });
+
+  InterstitialAd createInterstitialAd() => InterstitialAd(
+      adUnitId: "ca-app-pub-3595684883769922/2499280803",
+      targetingInfo: targetInfo,
+      listener: (MobileAdEvent event) {
+        print("Banner event : $event");
+      });
+
   @override
   void initState() {
-    wallBloc.fetchImages(page: Frazile.page);
     super.initState();
+    FirebaseAdMob.instance
+        .initialize(appId: "ca-app-pub-3595684883769922~4812413525");
+    _bannerAd = createBannerAd()
+      ..load()
+      ..show();
+    wallBloc.fetchImages(page: Frazile.page);
   }
 
   @override
   void dispose() {
     wallBloc.dispose();
+    _bannerAd?.dispose();
+    _interstitialAd?.dispose();
     super.dispose();
   }
 
@@ -39,13 +78,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final ColorArguments args = ModalRoute.of(context).settings.arguments;
-
     return Scaffold(
       body: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height * .93,
             child: StreamBuilder(
               stream: wallBloc.wallpapers,
               builder: (context, AsyncSnapshot<List<Result>> snapshot) {
