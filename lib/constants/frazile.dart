@@ -8,6 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Frazile {
   //* Names
   static const String appName = 'Food Wallfy';
+  static const String aboutScreen = 'About';
+  static const String settingsScreen = 'Settings';
+  static const String donateScreen = 'Donate';
 
   //* Service Caller Settings
   static const String baseURL = "https://api.unsplash.com/search/photos";

@@ -50,7 +50,7 @@ class _ConfigPageState extends State<ConfigPage> {
               ),
           // brightness: Brightness.light,
         ),
-        initialRoute: '/',
+        initialRoute: Frazile.home,
         routes: {
           Frazile.home: (BuildContext context) => HomePage(),
           Frazile.fullImage: (BuildContext context) => FullImage(),
