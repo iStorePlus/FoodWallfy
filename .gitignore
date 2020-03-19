@@ -28,6 +28,7 @@
 .pub/
 build/
 lib/pages/test/
+*.jks
 
 # Android related
 **/android/**/gradle-wrapper.jar
