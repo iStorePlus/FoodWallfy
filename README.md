@@ -71,3 +71,15 @@ flutter build apk --release
 
 Copyright © 2020, [FoodWallfy](https://github.com/FrazileDevelopers/FoodWallfy).
 Released under the [MIT License](LICENSE).
+
+<!-- Encryption
+
+```shell
+openssl enc -aes-256-cbc -e -in google-services.json -out google-services.fz
+```
+
+Decryption
+
+```shell
+openssl enc -aes-256-cbc -d -in google-services.json -out google-services.fz
+``` -->
