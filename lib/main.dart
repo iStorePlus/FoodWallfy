@@ -19,8 +19,8 @@ void main() {
   );
 
   //* Forcing only portrait orientation
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  // SystemChrome.setPreferredOrientations(
+  //     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   // * Get Shared Preference Instance for whole app
   // Frazile.prefs = await SharedPreferences.getInstance();
